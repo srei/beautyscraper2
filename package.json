@@ -1,0 +1,26 @@
+{
+  "name": "beautyscraper2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/srei/beautyscraper2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/srei/beautyscraper2/issues"
+  },
+  "homepage": "https://github.com/srei/beautyscraper2#readme",
+  "dependencies": {
+    "express": "^4.14.0",
+    "node": "0.0.0",
+    "react": "^15.3.2",
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.1.0"
+  }
+}
