@@ -2,9 +2,6 @@ var webpack = require('webpack');
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
-// var BUILD_DIR = path.resolve(__dirname, 'src/client/public');
-// var APP_DIR = path.resolve(__dirname, 'src/client/app');
-
 var config = {
   entry: './client/index.jsx',
   output: {
@@ -17,9 +14,7 @@ var config = {
    ],
  },
   plugins: [
-   // Automatically generate our html page
    new HtmlWebpackPlugin({
-     // Define the starting point for our dynamic html creation
      template: path.join(__dirname, '/index.html'),
      appMountId: 'root',
      title: 'Hello',

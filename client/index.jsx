@@ -3,7 +3,7 @@ import ReactDom from 'react-dom';
 
 class Hello extends React.Component {
 	render(){
-		return <div> HELLO WORLD </div>
+		return <div> HELLO!! WORLD </div>
 	}
 }
 
