@@ -11,7 +11,6 @@ const ejs = require('ejs');
 const scrapeController = {
 
 	getData: (req, res, next) => {
-		console.log("i'm in getData");
 
 		const url = req.query.url || 'http://www.dior.com/beauty/en_us/fragrance-beauty/makeup/face/foundation/fr-foundation-foundation.html';
 		let productCategory = [];
@@ -30,34 +29,23 @@ const scrapeController = {
 		});
 },
 	updateTable: (req, res, next) => {
-		console.log("I'm in updatetable");
+		msg.sequelize.sync({ force: true }).then(() => {  });
 
 		msg.Company.create ({ companyname: 'Dior', mainurl: 'http://www.dior.com/beauty/en_us/home.html' }).then(function(company){});
-	  msg.Product.create ({ productname: req.prod[0], visible: 't' }).then(function(company){});
-	  msg.Product.create ({ productname: req.prod[1], visible: 't' }).then(function(company){});
-	  msg.Product.create ({ productname: req.prod[2], visible: 't' }).then(function(company){});
-	  msg.Product.create ({ productname: req.prod[3], visible: 't' }).then(function(company){});
+	  msg.Product.create ({ productname: req.prod[0]}).then(function(company){});
+	  msg.Product.create ({ productname: req.prod[1]}).then(function(company){});
+	  msg.Product.create ({ productname: req.prod[2]}).then(function(company){});
+	  msg.Product.create ({ productname: req.prod[3]}).then(function(company){});
 	  next();
 	},
 	queryTable: (req, res, next) => {
-		console.log("im in queryT");
-		msg.Product.findAll({
-			attributes: ['productname'],
-		})
-		.then(function(products){
-			 let array = [];
-				products.forEach( value => {
-					array.push(value.dataValues.productname);
-				});
-		})
-		.then(function(){
 			let first = req.prod[0];
 			let second = req.prod[1];
 			let third = req.prod[2];
 			let fourth = req.prod[3];
 
-			res.render('index.ejs', {firstDiv: first, secondDiv: second, thirdDiv: third, fourthDiv: fourth});
-		})
-	}
+		res.render('index.ejs', {firstDiv: first, secondDiv: second, thirdDiv: third, fourthDiv: fourth});
+				// });
+		}
 }; // end of SCRAPECONTROLLER
 module.exports = scrapeController;
