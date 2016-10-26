@@ -36,7 +36,7 @@ Company.belongsTo(Product, {as: 'ProductNum', constraints: false });
 //this adds attribute productId to Color
 Product.hasMany(Color);
 
-// sequelize.sync({ force: true }).then(() => {  });
+sequelize.sync({ force: true }).then(() => {  });
 
 
 module.exports = { sequelize, Company, Product, Color };

@@ -29,7 +29,7 @@ const scrapeController = {
 		});
 },
 	updateTable: (req, res, next) => {
-		msg.sequelize.sync({ force: true }).then(() => {  });
+		// msg.sequelize.sync({ force: true }).then(() => {});
 
 		msg.Company.create ({ companyname: 'Dior', mainurl: 'http://www.dior.com/beauty/en_us/home.html' }).then(function(company){});
 	  msg.Product.create ({ productname: req.prod[0]}).then(function(company){});
