@@ -4,13 +4,14 @@
 const cheerio = require('cheerio');
 const request = require('request');
 const Sequelize = require('sequelize');
-const $ = require('jquery');
 
 const msg = require('./Postgresql-orm.js');
 
 const scrapeController = {
 
 	getData: (req, res, next) => {
+		console.log("i'm in getData");
+
 		const url = req.query.url || 'http://www.dior.com/beauty/en_us/fragrance-beauty/makeup/face/foundation/fr-foundation-foundation.html';
 		let productCategory = [];
 		// let headerLogoUrl = "";
@@ -28,6 +29,8 @@ const scrapeController = {
 		});
 },
 	updateTable: (req, res, next) => {
+		console.log("I'm in updatetable");
+
 		msg.Company.create ({ companyname: 'Dior', mainurl: 'http://www.dior.com/beauty/en_us/home.html' }).then(function(company){});
 	  msg.Product.create ({ productname: req.prod[0], visible: 't' }).then(function(company){});
 	  msg.Product.create ({ productname: req.prod[1], visible: 't' }).then(function(company){});
@@ -36,19 +39,18 @@ const scrapeController = {
 	  next();
 	},
 	queryTable: (req, res, next) => {
+		console.log("im in queryT");
+
 		msg.Product.findAll({
 			attributes: ['productname'],
 		})
-		.then(function(products){
+		.then(function(products,req){
 			 let array = [];
 				products.forEach( value => {
 					array.push(value.dataValues.productname);
 				});
-				$('#CompanyName').append(`"<div>${array[0]}</div>"`);
-			  $('#CompanyName').append(`"<div>${array[1]}</div>"`);
-			  $('#CompanyName').append(`"<div>${array[2]}</div>"`);
-			  $('#CompanyName').append(`"<div>${array[3]}</div>"`);
-			});
+				console.log("this is array", array);
+		})
 	}
 };
 module.exports = scrapeController;
