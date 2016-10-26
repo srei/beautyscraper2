@@ -3,6 +3,8 @@
 const express = require('express');
 const app = express();
 const scraperController = require('./scraper');
+const path = require('path');
+const ejs = require('ejs');
 
 // app.get('/mock', (req, res) => {
 // 	//creates schema object and saves to database
@@ -22,8 +24,11 @@ app.use(function(req, res, next){
 	next();
 })
 
-//
+
+// app.use('/', express.static(path.join(__dirname + '/html')));
+
 app.get('/', scraperController.getData, scraperController.updateTable, scraperController.queryTable);
+
 // app.get('/displayPage', scraperController.updateTable);
 
 // app.get('/display', )

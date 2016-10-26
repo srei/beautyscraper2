@@ -4,8 +4,9 @@
 const cheerio = require('cheerio');
 const request = require('request');
 const Sequelize = require('sequelize');
-
 const msg = require('./Postgresql-orm.js');
+const ejs = require('ejs');
+
 
 const scrapeController = {
 
@@ -40,17 +41,23 @@ const scrapeController = {
 	},
 	queryTable: (req, res, next) => {
 		console.log("im in queryT");
-
 		msg.Product.findAll({
 			attributes: ['productname'],
 		})
-		.then(function(products,req){
+		.then(function(products){
 			 let array = [];
 				products.forEach( value => {
 					array.push(value.dataValues.productname);
 				});
-				console.log("this is array", array);
+		})
+		.then(function(){
+			let first = req.prod[0];
+			let second = req.prod[1];
+			let third = req.prod[2];
+			let fourth = req.prod[3];
+
+			res.render('index.ejs', {firstDiv: first, secondDiv: second, thirdDiv: third, fourthDiv: fourth});
 		})
 	}
-};
+}; // end of SCRAPECONTROLLER
 module.exports = scrapeController;
