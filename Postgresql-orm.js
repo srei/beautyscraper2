@@ -1,13 +1,11 @@
-const Sequelize = require('sequelize');
-const saveData = require('../save-data.js');
+'use strict'
 
-const sequelize = new Sequelize('beautydata', 'postgres',  {
-  host: 'localhost',
-  dialect: 'postgres'
-});
+const Sequelize = require('sequelize');
+
+const sequelize = new Sequelize('postgres://localhost:5432/beautydata');
 
 sequelize
-  .authentication()
+  .authenticate()
   .then(function(err){ console.log("Connection is successful for sequelize");
   })
   .catch(function(err){ console.log("Unable to connect - sequelize", err); });
@@ -23,24 +21,23 @@ const Company = sequelize.define('company', {
 });
 
 const Product = sequelize.define('product', {
-  productname: Sequelize.STRING
+  productname: Sequelize.STRING,
+  visible: Sequelize.STRING
 });
 
 const Color = sequelize.define('color', {
   colorname: Sequelize.STRING
 });
 
+//this adds attribute companyId to Product
+Company.hasMany(Product);
 
-Company.hasMany(Product, { as: 'products'} );
-Product.hasOne( Company, {as: 'company', foreignKey: 'companyid'} );
+Company.belongsTo(Product, {as: 'ProductNum', constraints: false });
+//this adds attribute productId to Color
+Product.hasMany(Color);
 
-Product.hasMany(Color, { as: 'colors'} );
-Color.hasOne( Product);
+sequelize.sync({ force: true }).then(() => {  });
 
-module.exports = function(data) {
-  sequelize.sync({ logging: console.log, force: true }).then(() => {
-    Company.bulkCreate(saveData.postgresql(data))
-    .then(() => console.log('finished'));
-  });
 
-};
+module.exports = { Company, Product, Color };
+
