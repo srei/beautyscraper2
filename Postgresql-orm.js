@@ -29,11 +29,11 @@ const Color = sequelize.define('color', {
   colorname: Sequelize.STRING
 });
 
-//this adds attribute companyId to Product
+// adding attribute companyId to Product
 Company.hasMany(Product);
 
 Company.belongsTo(Product, {as: 'ProductNum', constraints: false });
-//this adds attribute productId to Color
+// adding attribute productId to Color
 Product.hasMany(Color);
 
 sequelize.sync({ force: true }).then(() => {  });

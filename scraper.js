@@ -1,4 +1,4 @@
-/*DIOR WEBSITE */
+/* DIOR WEBSITE */
 'use strict'
 
 const cheerio = require('cheerio');
